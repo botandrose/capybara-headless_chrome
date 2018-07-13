@@ -1,15 +1,15 @@
 # Capybara::HeadlessChrome
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/capybara/headless_chrome`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A nice and tidy Capybara driver for headless Chrome. Even supports file downloads!
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this to your application's Gemfile:
 
 ```ruby
-gem 'capybara-headless_chrome'
+group :test do
+  gem 'capybara-headless_chrome'
+end
 ```
 
 And then execute:
@@ -22,7 +22,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Capybara
+
+Require "capybara/headless_chrome" during your test setup.  That's it!
+
+### Downloads
+
+The Capybara session is extended with a single `#downloads` method that provides access to files downloaded during the session.
+
+```ruby
+page.click_link "Download Report"
+page.downloads.filenames # => ["report.csv"]
+page.downloads["report.csv"] # => #<File:report.csv>
+```
+
+Note that the `#[]` method is wrapped with Capybara's synchronize, so it will keep trying to find the file for up to `Capybara.default_max_wait_time` seconds.
+
+Be sure to run `page.downloads.reset` at the beginning of every test run to empty the downloaded files list.
 
 ## Development
 

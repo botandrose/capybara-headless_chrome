@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Micah Geisel"]
   spec.email         = ["micah@botandrose.com"]
 
-  spec.summary       = "Wiring between Capybara and Headless Chrome"
-  spec.description   = "Wiring between Capybara and Headless Chrome"
+  spec.summary       = "A nice and tidy Capybara driver for headless Chrome"
+  spec.description   = "A nice and tidy Capybara driver for headless Chrome. Even supports file downloads!"
   spec.homepage      = "https://github.com/botandrose/capybara-headless_chrome"
   spec.license       = "MIT"
 
