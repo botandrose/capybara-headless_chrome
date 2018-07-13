@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+.ruby-version
+.ruby-gemset
+Gemfile.lock
