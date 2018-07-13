@@ -1,4 +1,4 @@
 Before do
-  Capybara::HeadlessChrome::Downloads.setup
+  page.downloads.reset
 end
 

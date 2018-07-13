@@ -9,11 +9,6 @@ module Capybara
 
     class Downloads
       class << self
-        def setup
-          FileUtils.rm_rf dir
-          FileUtils.mkdir_p dir
-        end
-
         def configure_driver driver
           bridge = driver.browser.send(:bridge)
           path = '/session/:session_id/chromium/send_command'
@@ -45,6 +40,11 @@ module Capybara
         def pathname
           Capybara.save_path.join("downloads")
         end
+      end
+
+      def reset
+        FileUtils.rm_rf self.class.dir
+        FileUtils.mkdir_p self.class.dir
       end
 
       def filenames
