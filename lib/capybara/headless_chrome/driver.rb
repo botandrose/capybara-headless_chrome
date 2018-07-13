@@ -12,7 +12,7 @@ module Capybara
       end
 
       def downloads
-        Downloads.new
+        @downloads ||= Downloads.new
       end
 
       private
@@ -39,7 +39,7 @@ module Capybara
 
       def chrome_preferences
         {
-          "download.default_directory" => Downloads.dir,
+          "download.default_directory" => downloads.dir,
           "download.directory_upgrade": "true",
           "download.prompt_for_download": "false",
           "browser.set_download_behavior": "{ behavior: 'allow' }",
@@ -56,7 +56,7 @@ module Capybara
           cmd: 'Page.setDownloadBehavior',
           params: {
             behavior: 'allow',
-            downloadPath: Downloads.dir,
+            downloadPath: downloads.dir,
           }
         )
       end

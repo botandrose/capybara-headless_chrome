@@ -1,3 +1,4 @@
+require "fileutils"
 require "capybara"
 
 module Capybara
@@ -5,34 +6,37 @@ module Capybara
     class Downloads
       class NotFound < Capybara::ExpectationNotMet; end
 
-      class << self
-        def dir
-          pathname.to_s
-        end
-
-        def pathname
-          Capybara.save_path.join("downloads")
-        end
+      def dir
+        pathname.to_s
       end
 
       def reset
-        FileUtils.rm_rf self.class.dir
-        FileUtils.mkdir_p self.class.dir
+        FileUtils.rm_rf(dir)
+        FileUtils.mkdir_p(dir)
       end
 
       def filenames
-        self.class.pathname.entries.reject(&:directory?).map(&:to_s)
+        pathname.entries.reject(&:directory?).map(&:to_s)
       end
 
       def [] filename
-        path = self.class.pathname.join(filename)
         Capybara.current_session.document.synchronize do
           begin
-            File.open(path)
+            File.open(pathname.join(filename))
           rescue Errno::ENOENT
             raise NotFound.new("Couldn't find #{filename} in #{filenames}")
           end
         end
+      end
+
+      private
+
+      def pathname
+        @pathname ||= Capybara.save_path.join(unique_id, "downloads")
+      end
+
+      def unique_id
+        Time.now.strftime('%s%L')
       end
     end
   end
