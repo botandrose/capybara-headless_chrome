@@ -9,6 +9,7 @@ module Capybara
       def initialize app
         super(app, browser: :chrome, desired_capabilities: chrome_capabilities)
         configure_downloads
+        fix_whitespace
       end
 
       def downloads
@@ -59,6 +60,19 @@ module Capybara
             downloadPath: downloads.dir,
           }
         )
+      end
+
+      def fix_whitespace
+        Capybara::Selenium::Node.prepend Module.new {
+          def visible_text
+            super
+              .gsub(/[\u200b\u200e\u200f]/, '')
+              .gsub(/[\ \n\f\t\v\u2028\u2029]+/, ' ')
+              .gsub(/\A[[:space:]&&[^\u00a0]]+/, '')
+              .gsub(/[[:space:]&&[^\u00a0]]+\z/, '')
+              .tr("\u00a0", ' ')
+          end
+        }
       end
     end
   end
