@@ -6,8 +6,8 @@ require "capybara/headless_chrome/downloads"
 module Capybara
   module HeadlessChrome
     class Driver < Capybara::Selenium::Driver
-      def initialize app
-        super(app, browser: :chrome, desired_capabilities: chrome_capabilities)
+      def initialize app, args: []
+        super(app, browser: :chrome, desired_capabilities: chrome_capabilities(args))
         configure_downloads
         fix_whitespace
       end
@@ -18,10 +18,10 @@ module Capybara
 
       private
 
-      def chrome_capabilities
+      def chrome_capabilities args
         ::Selenium::WebDriver::Remote::Capabilities.chrome(
           chromeOptions: {
-            args: chrome_arguments,
+            args: chrome_arguments + args,
             prefs: chrome_preferences
           }
         )
