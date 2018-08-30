@@ -16,7 +16,23 @@ module Capybara
         @downloads ||= Downloads.new
       end
 
+      def javascript_errors
+        console_entries level: "SEVERE"
+      end
+
+      def javascript_warnings
+        console_entries level: "WARNING"
+      end
+
       private
+
+      def console_entries level: nil
+        browser.manage.logs.get(:browser)
+          .select {|e| level ? e.level == level : true }
+          .map(&:message)
+          .select(&:present?)
+          .to_a
+      end
 
       def chrome_capabilities args
         ::Selenium::WebDriver::Remote::Capabilities.chrome(
