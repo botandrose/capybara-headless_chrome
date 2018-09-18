@@ -6,8 +6,8 @@ require "capybara/headless_chrome/downloads"
 module Capybara
   module HeadlessChrome
     class Driver < Capybara::Selenium::Driver
-      def initialize app, args: []
-        super(app, browser: :chrome, desired_capabilities: chrome_capabilities(args))
+      def initialize app, options={}
+        super app, browser: :chrome, desired_capabilities: chrome_capabilities(options)
         configure_downloads
         fix_whitespace
       end
@@ -34,24 +34,37 @@ module Capybara
           .to_a
       end
 
-      def chrome_capabilities args
+      def chrome_capabilities options
         ::Selenium::WebDriver::Remote::Capabilities.chrome(
           chromeOptions: {
-            args: chrome_arguments + args,
-            prefs: chrome_preferences
+            args: options_to_arguments(default_chrome_arguments.merge(options)),
+            prefs: chrome_preferences,
           }
         )
       end
 
-      def chrome_arguments
-        [
-          "no-sandbox",
-          "headless",
-          "disable-infobars",
-          "disable-popup-blocking",
-          "disable-gpu",
-          "window-size=1280,1024",
-        ]
+      def options_to_arguments options
+        options.map do |key, value|
+          arg = key.to_s.gsub(/_/,'-')
+          if [true, false].include?(value)
+            arg if value
+          elsif value.is_a?(Array)
+            "#{arg}=#{value.join(",")}"
+          else
+            raise NotImplementedError.new(message: [key, value])
+          end
+        end.compact
+      end
+
+      def default_chrome_arguments
+        {
+          no_sandbox: true,
+          headless: true,
+          disable_infobars: true,
+          disable_popup_blocking: true,
+          disable_gpu: true,
+          window_size: [1280,1024],
+        }
       end
 
       def chrome_preferences
