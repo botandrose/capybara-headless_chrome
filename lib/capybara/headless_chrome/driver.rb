@@ -69,10 +69,10 @@ module Capybara
 
       def chrome_preferences
         {
-          "download.default_directory" => downloads.dir,
+          "download.default_directory": downloads.dir,
           "download.directory_upgrade": "true",
           "download.prompt_for_download": "false",
-          "browser.set_download_behavior": "{ behavior: 'allow' }",
+          "browser.set_download_behavior": "{ 'behavior': 'allow' }",
         }
       end
 
