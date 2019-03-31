@@ -1,9 +1,6 @@
 RSpec.describe Capybara::HeadlessChrome do
-  it "has a version number" do
-    expect(Capybara::HeadlessChrome::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
+  it "can load google" do
+    Capybara.save_path = Pathname.new(__dir__).join("../../tmp")
+    Capybara.current_session.visit "https://google.com"
   end
 end
