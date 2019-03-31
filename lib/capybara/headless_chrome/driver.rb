@@ -1,5 +1,4 @@
-require "selenium/webdriver"
-require "chromedriver/helper"
+require "webdrivers"
 require "capybara"
 require "capybara/headless_chrome/downloads"
 
