@@ -1,5 +1,26 @@
 sudo: false
 language: ruby
+
 rvm:
-  - 2.4.3
-before_install: gem install bundler -v 1.16.1
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
+
+gemfile:
+  - gemfiles/capybara_2.gemfile
+  - gemfiles/capybara_3.gemfile
+  - gemfiles/rails_5.0.gemfile
+  - gemfiles/rails_5.1.gemfile
+  - gemfiles/rails_5.2.gemfile
+  - gemfiles/latest.gemfile
+
+addons:
+  chrome: stable
+
+before_install:
+  - gem update --system
+  - gem install bundler
+
+cache: bundler
+
