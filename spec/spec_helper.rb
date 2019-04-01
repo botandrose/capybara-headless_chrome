@@ -1,5 +1,8 @@
 require "bundler/setup"
 require "capybara/headless_chrome"
+require "capybara/rspec"
+require "byebug"
+require "./spec/support/test_app"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -11,4 +14,9 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  Capybara.app = TestApp.new
+  Capybara.save_path = Pathname.new(__dir__).join("../tmp")
+  Capybara.server = :webrick
 end
+
