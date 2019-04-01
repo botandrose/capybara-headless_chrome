@@ -1,5 +1,5 @@
 # Capybara::HeadlessChrome
-[![Build Status](https://travis-ci.org/botandrose/capybara-headless_chrome.svg?branch=master)](https://travis-ci.org/botandrose/ds_media_library)
+[![Build Status](https://travis-ci.org/botandrose/capybara-headless_chrome.svg?branch=master)](https://travis-ci.org/botandrose/capybara-headless_chrome)
 
 A nice and tidy Capybara driver for headless Chrome. Even supports file downloads!
 
