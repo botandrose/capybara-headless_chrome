@@ -17,16 +17,16 @@ gemfile:
 
 matrix:
   exclude:
-  - rvm: 2.3
-    gemfiles/capybara_3.gemfile
-  - rvm: 2.3
-    gemfiles/rails_5.0.gemfile
-  - rvm: 2.3
-    gemfiles/rails_5.1.gemfile
-  - rvm: 2.3
-    gemfiles/rails_5.2.gemfile
-  - rvm: 2.3
-    gemfiles/latest.gemfile
+    - rvm: 2.3
+      gemfiles/capybara_3.gemfile
+    - rvm: 2.3
+      gemfiles/rails_5.0.gemfile
+    - rvm: 2.3
+      gemfiles/rails_5.1.gemfile
+    - rvm: 2.3
+      gemfiles/rails_5.2.gemfile
+    - rvm: 2.3
+      gemfiles/latest.gemfile
 
 addons:
   chrome: stable
