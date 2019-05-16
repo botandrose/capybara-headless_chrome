@@ -47,6 +47,8 @@ module Capybara
           arg = key.to_s.gsub(/_/,'-')
           if [true, false].include?(value)
             arg if value
+          elsif value.is_a?(String)
+            "#{arg}=#{value}"
           elsif value.is_a?(Array)
             "#{arg}=#{value.join(",")}"
           else
