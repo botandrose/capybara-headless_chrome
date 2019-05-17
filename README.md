@@ -9,6 +9,18 @@ A nice and tidy Capybara driver for headless Chrome. Even supports file download
 
 Just `require "capybara/headless_chrome"` somewhere in your test setup. This will register the `:chrome` driver, and make it  Capybara's default.
 
+#### Options
+
+If you want to change some of the options Chrome is started with, just reregister the driver:
+
+```ruby
+Capybara.register_driver :chrome do |app|
+  Capybara::HeadlessChrome::Driver.new(app, lang: "es_MX", headless: false, window_size: [1024,768])
+end
+```
+
+Consult https://peter.sh/experiments/chromium-command-line-switches/ for a list of options. Although these are command-line options, conversion from a Ruby hash works as you would expect. E.g. `headless: true` works out to `--headless`, `window_size: [1024,768]` works out to `--window-size=1024,768`, etc.
+
 ### Working with Downloaded Files
 
 The Capybara session is extended with a single `#downloads` method that provides access to files downloaded during the session.
