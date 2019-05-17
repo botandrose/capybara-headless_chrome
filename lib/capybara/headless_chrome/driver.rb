@@ -5,7 +5,7 @@ require "capybara/headless_chrome/downloads"
 # silence warning with webdrivers ~>3.9
 webdrivers_version = Gem.loaded_specs["webdrivers"].version
 if webdrivers_version >= Gem::Version.new("3.9") && webdrivers_version < Gem::Version.new("4.0")
-  Webdrivers.cache_time = 1.day
+  Webdrivers.cache_time = 86400
 end
 
 module Capybara
