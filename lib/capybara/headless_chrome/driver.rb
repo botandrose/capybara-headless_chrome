@@ -42,6 +42,7 @@ module Capybara
       def chrome_capabilities options
         ::Selenium::WebDriver::Remote::Capabilities.chrome(
           chromeOptions: {
+            w3c: false,
             args: options_to_arguments(default_chrome_arguments.merge(options)),
             prefs: chrome_preferences,
           }
